@@ -16,7 +16,7 @@ Request and response objects are described in [section 3](#3-data-objects). Stat
 |---|---|---|---|---|
 | `POST /api/auth/register` | Create an account (public) | `RegisterRequest` | **201** `AuthResponse` | 400, **409** |
 | `POST /api/auth/login` | Log in (public) | `LoginRequest` | 200 `AuthResponse` | **400**, 401 |
-| `GET /api/auth/me` | Get the logged-in user | - | 200 `UserResponse` | 401 |
+| `GET /api/auth/me` | Get the logged-in user | - | 200 `UserResponse` | 401, **404** |
 | `GET /api/rentals` | List all rentals | - | 200 `RentalsResponse` | 401 |
 | `GET /api/rentals/{id}` | Get a rental | - | 200 `RentalResponse` | 401, **404** |
 | `POST /api/rentals` | Create a rental | `RentalRequest` | **201** `MessageResponse` | **400**, 401 |
@@ -32,7 +32,7 @@ Object names are the future DTO names. All request fields are required; `picture
 | Object | Fields | Rules |
 |---|---|---|
 | `RegisterRequest` | `name`, `email`, `password` | `email` must be a valid address. `name` and `email` are limited to 255 characters. |
-| `LoginRequest` | `email`, `password` | - |
+| `LoginRequest` | `email`, `password` | `password` is limited to 72 characters. |
 | `RentalRequest` | `name`, `surface`, `price`, `description`, `picture` | Sent as `multipart/form-data`. `surface` and `price` are positive integers. `name` is limited to 255 characters and `description` to 2000. |
 | `MessageRequest` | `rental_id`, `user_id`, `message` | `rental_id` must be an existing rental and `user_id` the authenticated user. `message` is limited to 2000 characters. |
 | `AuthResponse` | `token` | A signed JWT. |
