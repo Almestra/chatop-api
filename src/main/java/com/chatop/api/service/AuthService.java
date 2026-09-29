@@ -4,9 +4,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.chatop.api.dto.AuthResponse;
+import com.chatop.api.dto.LoginRequest;
 import com.chatop.api.dto.RegisterRequest;
 import com.chatop.api.entity.User;
 import com.chatop.api.exception.ConflictException;
+import com.chatop.api.exception.UnauthorizedException;
 import com.chatop.api.repository.UserRepository;
 
 /**
@@ -14,6 +16,8 @@ import com.chatop.api.repository.UserRepository;
  */
 @Service
 public class AuthService {
+
+    private static final String INVALID_CREDENTIALS = "Invalid email or password";
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -44,6 +48,27 @@ public class AuthService {
         User savedUser = userRepository.save(user);
 
         return new AuthResponse(jwtService.generateToken(savedUser));
+    }
+
+    /**
+     * Checks the credentials of a user and returns a new token.
+     *
+     * <p>The same error is returned whether the email address is unknown or the
+     * password is wrong, so that the API never reveals which accounts exist.
+     *
+     * @param request the email address and password of the user
+     * @return a new token for the user
+     * @throws UnauthorizedException if the email address or the password is wrong
+     */
+    public AuthResponse login(LoginRequest request) {
+        User user = userRepository.findByEmail(request.email())
+                .orElseThrow(() -> new UnauthorizedException(INVALID_CREDENTIALS));
+
+        if (!passwordEncoder.matches(request.password(), user.getPassword())) {
+            throw new UnauthorizedException(INVALID_CREDENTIALS);
+        }
+
+        return new AuthResponse(jwtService.generateToken(user));
     }
 
 }

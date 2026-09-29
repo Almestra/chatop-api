@@ -32,7 +32,7 @@ Object names are the future DTO names. All request fields are required; `picture
 | Object | Fields | Rules |
 |---|---|---|
 | `RegisterRequest` | `name`, `email`, `password` | `email` must be a valid address. `name` and `email` are limited to 255 characters. |
-| `LoginRequest` | `email`, `password` | - |
+| `LoginRequest` | `email`, `password` | `password` is limited to 72 characters. |
 | `RentalRequest` | `name`, `surface`, `price`, `description`, `picture` | Sent as `multipart/form-data`. `surface` and `price` are positive integers. `name` is limited to 255 characters and `description` to 2000. |
 | `MessageRequest` | `rental_id`, `user_id`, `message` | `rental_id` must be an existing rental and `user_id` the authenticated user. `message` is limited to 2000 characters. |
 | `AuthResponse` | `token` | A signed JWT. |
