@@ -16,7 +16,7 @@ Request and response objects are described in [section 3](#3-data-objects). Stat
 |---|---|---|---|---|
 | `POST /api/auth/register` | Create an account (public) | `RegisterRequest` | **201** `AuthResponse` | 400, **409** |
 | `POST /api/auth/login` | Log in (public) | `LoginRequest` | 200 `AuthResponse` | **400**, 401 |
-| `GET /api/auth/me` | Get the logged-in user | - | 200 `UserResponse` | 401 |
+| `GET /api/auth/me` | Get the logged-in user | - | 200 `UserResponse` | 401, **404** |
 | `GET /api/rentals` | List all rentals | - | 200 `RentalsResponse` | 401 |
 | `GET /api/rentals/{id}` | Get a rental | - | 200 `RentalResponse` | 401, **404** |
 | `POST /api/rentals` | Create a rental | `RentalRequest` | **201** `MessageResponse` | **400**, 401 |
