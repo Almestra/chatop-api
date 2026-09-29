@@ -22,7 +22,7 @@ Request and response objects are described in [section 3](#3-data-objects). Stat
 | `POST /api/rentals` | Create a rental | `RentalRequest` | **201** `MessageResponse` | **400**, 401 |
 | `PUT /api/rentals/{id}` | Update a rental | `RentalRequest` | 200 `MessageResponse` | **400**, 401, **403**, **404** |
 | `POST /api/messages` | Send a message to a rental's owner | `MessageRequest` | **201** `MessageResponse` | 400, 401, **403** |
-| `GET /api/user/{id}` | Get a user | - | 200 `UserResponse` | 401, **404** |
+| `GET /api/user/{id}` | Get a user | - | 200 `UserResponse` | **400**, 401, **404** |
 | `GET /api/images/{filename}` | **Added:** get a rental picture (public) | - | **200** image file | **404** |
 
 ## 3. Data objects
@@ -63,7 +63,7 @@ Every error returns `{ "message": "…" }` with one of these status codes:
 
 | Status | Case |
 |---|---|
-| 400 | missing or invalid field or picture, unknown rental in a message |
+| 400 | missing or invalid field or picture, invalid id in the URL, unknown rental in a message |
 | 401 | missing or invalid token, wrong email or password |
 | 403 | update by someone other than the owner, `user_id` different from the authenticated user |
 | 404 | unknown rental, user or picture |
