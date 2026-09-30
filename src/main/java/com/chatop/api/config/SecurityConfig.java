@@ -15,8 +15,8 @@ import com.chatop.api.exception.SecurityErrorHandler;
 
 /**
  * Security rules of the API: every endpoint requires a valid JSON Web Token,
- * except registration, login, the rental pictures, the Swagger documentation
- * and the error page.
+ * except registration, login, the rental pictures, the teapot, the Swagger
+ * documentation and the error page.
  */
 @Configuration
 public class SecurityConfig {
@@ -60,6 +60,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/api/auth/register", "/api/auth/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/images/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/coffee").permitAll()
                         .requestMatchers(PUBLIC_DOCUMENTATION).permitAll()
                         .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated())
