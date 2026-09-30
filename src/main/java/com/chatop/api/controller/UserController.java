@@ -9,7 +9,9 @@ import com.chatop.api.config.OpenApiConfig;
 import com.chatop.api.dto.UserResponse;
 import com.chatop.api.service.UserService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
  * User endpoints of the API.
@@ -17,6 +19,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 @RestController
 @RequestMapping("/api/user")
 @SecurityRequirement(name = OpenApiConfig.BEARER_AUTH)
+@Tag(name = "Users")
 public class UserController {
 
     private final UserService userService;
@@ -32,6 +35,7 @@ public class UserController {
      * @return the information about the user
      */
     @GetMapping("/{id}")
+    @Operation(summary = "Get a user")
     public UserResponse getUser(@PathVariable Integer id) {
         return userService.getUser(id);
     }

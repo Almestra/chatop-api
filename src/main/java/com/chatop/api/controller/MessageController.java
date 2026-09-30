@@ -14,7 +14,9 @@ import com.chatop.api.dto.MessageRequest;
 import com.chatop.api.dto.MessageResponse;
 import com.chatop.api.service.MessageService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 /**
@@ -23,6 +25,7 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/messages")
 @SecurityRequirement(name = OpenApiConfig.BEARER_AUTH)
+@Tag(name = "Messages")
 public class MessageController {
 
     private final MessageService messageService;
@@ -40,6 +43,7 @@ public class MessageController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "Send a message to a rental's owner", description = "user_id must be the id of the logged-in user.")
     public MessageResponse sendMessage(@Valid @RequestBody MessageRequest request, @AuthenticationPrincipal Jwt jwt) {
         messageService.sendMessage(request, Integer.valueOf(jwt.getSubject()));
         return new MessageResponse("Message send with success");

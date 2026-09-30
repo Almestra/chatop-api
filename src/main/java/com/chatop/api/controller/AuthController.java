@@ -18,7 +18,9 @@ import com.chatop.api.dto.UserResponse;
 import com.chatop.api.service.AuthService;
 import com.chatop.api.service.UserService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 /**
@@ -26,6 +28,7 @@ import jakarta.validation.Valid;
  */
 @RestController
 @RequestMapping("/api/auth")
+@Tag(name = "Authentication")
 public class AuthController {
 
     private final AuthService authService;
@@ -44,6 +47,7 @@ public class AuthController {
      */
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "Create an account")
     public AuthResponse register(@Valid @RequestBody RegisterRequest request) {
         return authService.register(request);
     }
@@ -55,6 +59,7 @@ public class AuthController {
      * @return a new token for the user
      */
     @PostMapping("/login")
+    @Operation(summary = "Log in")
     public AuthResponse login(@Valid @RequestBody LoginRequest request) {
         return authService.login(request);
     }
@@ -67,6 +72,7 @@ public class AuthController {
      */
     @GetMapping("/me")
     @SecurityRequirement(name = OpenApiConfig.BEARER_AUTH)
+    @Operation(summary = "Get the logged-in user")
     public UserResponse me(@AuthenticationPrincipal Jwt jwt) {
         return userService.getUser(Integer.valueOf(jwt.getSubject()));
     }
