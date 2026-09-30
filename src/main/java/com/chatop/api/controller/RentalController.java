@@ -13,12 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.chatop.api.config.OpenApiConfig;
 import com.chatop.api.dto.MessageResponse;
 import com.chatop.api.dto.RentalRequest;
 import com.chatop.api.dto.RentalResponse;
 import com.chatop.api.dto.RentalsResponse;
 import com.chatop.api.service.RentalService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 
 /**
@@ -26,6 +28,7 @@ import jakarta.validation.Valid;
  */
 @RestController
 @RequestMapping("/api/rentals")
+@SecurityRequirement(name = OpenApiConfig.BEARER_AUTH)
 public class RentalController {
 
     private final RentalService rentalService;

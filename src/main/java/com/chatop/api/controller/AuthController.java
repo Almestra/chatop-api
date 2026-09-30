@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.chatop.api.config.OpenApiConfig;
 import com.chatop.api.dto.AuthResponse;
 import com.chatop.api.dto.LoginRequest;
 import com.chatop.api.dto.RegisterRequest;
@@ -17,6 +18,7 @@ import com.chatop.api.dto.UserResponse;
 import com.chatop.api.service.AuthService;
 import com.chatop.api.service.UserService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 
 /**
@@ -64,6 +66,7 @@ public class AuthController {
      * @return the information about the logged-in user
      */
     @GetMapping("/me")
+    @SecurityRequirement(name = OpenApiConfig.BEARER_AUTH)
     public UserResponse me(@AuthenticationPrincipal Jwt jwt) {
         return userService.getUser(Integer.valueOf(jwt.getSubject()));
     }

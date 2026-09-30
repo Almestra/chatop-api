@@ -5,14 +5,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.chatop.api.config.OpenApiConfig;
 import com.chatop.api.dto.UserResponse;
 import com.chatop.api.service.UserService;
+
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 /**
  * User endpoints of the API.
  */
 @RestController
 @RequestMapping("/api/user")
+@SecurityRequirement(name = OpenApiConfig.BEARER_AUTH)
 public class UserController {
 
     private final UserService userService;
