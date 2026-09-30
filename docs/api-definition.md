@@ -1,6 +1,6 @@
 # ChâTop — API Definition
 
-This definition is based on the Mockoon environment of the front-end repository, [`ressources/mockoon/rental-oc.json`](https://github.com/Almestra/chatop/blob/main/ressources/mockoon/rental-oc.json), extended with business rules and error cases.
+This definition is based on the Mockoon environment of the front-end repository, [`ressources/mockoon/rental-oc.json`](https://github.com/OpenClassrooms-Student-Center/Mod-lisez-et-impl-mentez-le-back-end-en-utilisant-du-code-Java-maintenable/blob/main/ressources/mockoon/rental-oc.json), extended with business rules and error cases.
 
 ## 1. Conventions
 

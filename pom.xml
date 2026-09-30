@@ -10,9 +10,9 @@
     </parent>
     <groupId>com.chatop</groupId>
     <artifactId>chatop-api</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name/>
-    <description/>
+    <version>1.0.0</version>
+    <name>ChâTop API</name>
+    <description>Back-end of the ChâTop seasonal rental portal</description>
     <url/>
     <licenses>
         <license/>
