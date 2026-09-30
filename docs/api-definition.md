@@ -18,11 +18,11 @@ Request and response objects are described in [section 3](#3-data-objects). Stat
 | `POST /api/auth/login` | Log in (public) | `LoginRequest` | 200 `AuthResponse` | **400**, 401 |
 | `GET /api/auth/me` | Get the logged-in user | - | 200 `UserResponse` | 401, **404** |
 | `GET /api/rentals` | List all rentals | - | 200 `RentalsResponse` | 401 |
-| `GET /api/rentals/{id}` | Get a rental | - | 200 `RentalResponse` | 401, **404** |
-| `POST /api/rentals` | Create a rental | `RentalRequest` | **201** `MessageResponse` | **400**, 401 |
-| `PUT /api/rentals/{id}` | Update a rental | `RentalRequest` | 200 `MessageResponse` | **400**, 401, **403**, **404** |
+| `GET /api/rentals/{id}` | Get a rental | - | 200 `RentalResponse` | **400**, 401, **404** |
+| `POST /api/rentals` | Create a rental | `RentalRequest` | **201** `MessageResponse` | **400**, 401, **413** |
+| `PUT /api/rentals/{id}` | Update a rental | `RentalRequest` | 200 `MessageResponse` | **400**, 401, **403**, **404**, **413** |
 | `POST /api/messages` | Send a message to a rental's owner | `MessageRequest` | **201** `MessageResponse` | 400, 401, **403** |
-| `GET /api/user/{id}` | Get a user | - | 200 `UserResponse` | 401, **404** |
+| `GET /api/user/{id}` | Get a user | - | 200 `UserResponse` | **400**, 401, **404** |
 | `GET /api/images/{filename}` | **Added:** get a rental picture (public) | - | **200** image file | **404** |
 
 ## 3. Data objects
@@ -63,11 +63,13 @@ Every error returns `{ "message": "…" }` with one of these status codes:
 
 | Status | Case |
 |---|---|
-| 400 | missing or invalid field or picture, unknown rental in a message |
+| 400 | missing or invalid field or picture, invalid id in the URL, unknown rental in a message |
 | 401 | missing or invalid token, wrong email or password |
 | 403 | update by someone other than the owner, `user_id` different from the authenticated user |
 | 404 | unknown rental, user or picture |
 | 409 | email already used |
+| 413 | picture larger than 5 MB |
+| 415 | body in another format than the expected one (JSON or `multipart/form-data`), on any endpoint with a body |
 | 500 | unexpected error, on any endpoint |
 
 ## 5. Differences from Mockoon
@@ -76,7 +78,7 @@ Section 2 covers every route of the Mockoon environment. None of the differences
 
 | Topic | Mockoon | This API |
 |---|---|---|
-| Status codes | `200`, `400` and `401` only | `201` on creation, new `400`, `403`, `404` and `409` cases |
+| Status codes | `200`, `400` and `401` only | `201` on creation, new `400`, `403`, `404`, `409`, `413` and `415` cases |
 | Login with a wrong email | `200`, because of a faulty Mockoon rule | `401` |
 | Error body | empty, `{}` or `{ "message": "error" }` | `{ "message": "…" }` |
 | Dates | `"2022/02/02"` | ISO-8601 |
