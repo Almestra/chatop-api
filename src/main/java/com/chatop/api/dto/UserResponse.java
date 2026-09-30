@@ -3,6 +3,7 @@ package com.chatop.api.dto;
 import java.time.LocalDateTime;
 
 import com.chatop.api.entity.User;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Information about a user returned by the API, without the password.
@@ -17,8 +18,8 @@ public record UserResponse(
         Integer id,
         String name,
         String email,
-        LocalDateTime createdAt,
-        LocalDateTime updatedAt) {
+        @JsonProperty("created_at") LocalDateTime createdAt,
+        @JsonProperty("updated_at") LocalDateTime updatedAt) {
 
     /**
      * Creates the response from a user entity.

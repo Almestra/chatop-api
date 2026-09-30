@@ -3,6 +3,7 @@ package com.chatop.api.dto;
 import java.time.LocalDateTime;
 
 import com.chatop.api.entity.Rental;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Rental returned by the API.
@@ -24,9 +25,9 @@ public record RentalResponse(
         Integer price,
         String picture,
         String description,
-        Integer ownerId,
-        LocalDateTime createdAt,
-        LocalDateTime updatedAt) {
+        @JsonProperty("owner_id") Integer ownerId,
+        @JsonProperty("created_at") LocalDateTime createdAt,
+        @JsonProperty("updated_at") LocalDateTime updatedAt) {
 
     /**
      * Creates the response from a rental entity.
