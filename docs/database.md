@@ -1,6 +1,6 @@
 # ChâTop — Database
 
-The MySQL database `chatop_db` is created by [`database.sql`](database.sql). Its tables, columns and relations are those of the schema provided with the front-end, [`ressources/sql/script.sql`](https://github.com/Almestra/chatop/blob/main/ressources/sql/script.sql), unchanged.
+The MySQL database `chatop_db` is created by [`database.sql`](database.sql). Its tables, columns and relations are those of the schema provided with the front-end, [`ressources/sql/script.sql`](https://github.com/OpenClassrooms-Student-Center/Mod-lisez-et-impl-mentez-le-back-end-en-utilisant-du-code-Java-maintenable/blob/main/ressources/sql/script.sql), unchanged.
 
 ## 1. Installation
 
