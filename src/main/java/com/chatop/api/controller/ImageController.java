@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.chatop.api.service.ImageService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 /**
  * Picture endpoints of the API.
  *
@@ -19,6 +22,7 @@ import com.chatop.api.service.ImageService;
  */
 @RestController
 @RequestMapping("/api/images")
+@Tag(name = "Pictures")
 public class ImageController {
 
     private final ImageService imageService;
@@ -38,6 +42,7 @@ public class ImageController {
      * @return the picture file, with its media type
      */
     @GetMapping("/{filename}")
+    @Operation(summary = "Get a rental picture")
     public ResponseEntity<Resource> getImage(@PathVariable String filename) {
         Resource picture = imageService.getImage(filename);
         MediaType mediaType = MediaTypeFactory.getMediaType(picture)

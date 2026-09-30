@@ -1,5 +1,7 @@
 package com.chatop.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -12,8 +14,8 @@ import jakarta.validation.constraints.Size;
  * @param message the text of the message, at most 2000 characters
  */
 public record MessageRequest(
-        @NotNull Integer rentalId,
-        @NotNull Integer userId,
+        @NotNull @JsonProperty("rental_id") Integer rentalId,
+        @NotNull @JsonProperty("user_id") Integer userId,
         @NotBlank @Size(max = 2000) String message) {
 
 }
