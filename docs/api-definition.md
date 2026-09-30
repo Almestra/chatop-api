@@ -20,7 +20,7 @@ Request and response objects are described in [section 3](#3-data-objects). Stat
 | `GET /api/rentals` | List all rentals | - | 200 `RentalsResponse` | 401 |
 | `GET /api/rentals/{id}` | Get a rental | - | 200 `RentalResponse` | **400**, 401, **404** |
 | `POST /api/rentals` | Create a rental | `RentalRequest` | **201** `MessageResponse` | **400**, 401, **413** |
-| `PUT /api/rentals/{id}` | Update a rental | `RentalRequest` | 200 `MessageResponse` | **400**, 401, **403**, **404** |
+| `PUT /api/rentals/{id}` | Update a rental | `RentalRequest` | 200 `MessageResponse` | **400**, 401, **403**, **404**, **413** |
 | `POST /api/messages` | Send a message to a rental's owner | `MessageRequest` | **201** `MessageResponse` | 400, 401, **403** |
 | `GET /api/user/{id}` | Get a user | - | 200 `UserResponse` | **400**, 401, **404** |
 | `GET /api/images/{filename}` | **Added:** get a rental picture (public) | - | **200** image file | **404** |

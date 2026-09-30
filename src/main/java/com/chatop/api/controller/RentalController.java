@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -68,6 +69,24 @@ public class RentalController {
             @AuthenticationPrincipal Jwt jwt) {
         rentalService.createRental(request, Integer.valueOf(jwt.getSubject()));
         return new MessageResponse("Rental created !");
+    }
+
+    /**
+     * Updates a rental of the logged-in user, from a form sent
+     * as {@code multipart/form-data}. A picture sent with the form is ignored.
+     *
+     * @param id the id of the rental
+     * @param request the new values of the rental
+     * @param jwt the token of the request, whose subject is the id of the logged-in user
+     * @return the confirmation message displayed by the front-end
+     */
+    @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public MessageResponse updateRental(
+            @PathVariable Integer id,
+            @Valid @ModelAttribute RentalRequest request,
+            @AuthenticationPrincipal Jwt jwt) {
+        rentalService.updateRental(id, request, Integer.valueOf(jwt.getSubject()));
+        return new MessageResponse("Rental updated !");
     }
 
 }

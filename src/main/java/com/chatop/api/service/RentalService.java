@@ -9,6 +9,7 @@ import com.chatop.api.dto.RentalRequest;
 import com.chatop.api.dto.RentalResponse;
 import com.chatop.api.dto.RentalsResponse;
 import com.chatop.api.entity.Rental;
+import com.chatop.api.exception.ForbiddenException;
 import com.chatop.api.exception.NotFoundException;
 import com.chatop.api.repository.RentalRepository;
 import com.chatop.api.repository.UserRepository;
@@ -88,6 +89,34 @@ public class RentalService {
             imageService.delete(pictureUrl);
             throw e;
         }
+    }
+
+    /**
+     * Updates the name, surface, price and description of a rental.
+     *
+     * <p>Only the owner can update a rental, and its picture never changes.
+     * No call to {@code save} is needed: Hibernate writes the changes of the loaded
+     * rental when the transaction ends.
+     *
+     * @param id the id of the rental
+     * @param request the new values of the rental, whose picture is ignored
+     * @param userId the id of the logged-in user
+     * @throws NotFoundException if no rental has this id
+     * @throws ForbiddenException if the logged-in user is not the owner of the rental
+     */
+    @Transactional
+    public void updateRental(Integer id, RentalRequest request, Integer userId) {
+        Rental rental = rentalRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Rental not found"));
+
+        if (!rental.getOwner().getId().equals(userId)) {
+            throw new ForbiddenException("Only the owner can update this rental");
+        }
+
+        rental.setName(request.name());
+        rental.setSurface(request.surface());
+        rental.setPrice(request.price());
+        rental.setDescription(request.description());
     }
 
 }
